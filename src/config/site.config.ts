@@ -49,9 +49,12 @@ export const siteConfig: SiteConfig = {
     reviveId: "ac119b122a644588953c74c4c1daee06",
     scriptUrl: "//ads.les4h.fr/www/delivery/asyncjs.php",
     zones: {
-      mobileSticky: { zoneId: 623, format: "mobileBanner" },
-      inContent: { zoneId: 627, format: "mediumRectangle" },
-      header: { zoneId: 626, format: "leaderboard" },
+      mobileSticky: { zoneId: 488, format: "mobileBanner" },
+      inContent: { zoneId: 480, format: "mediumRectangle" },
+      header: { zoneId: 479, format: "leaderboard" },
+      halfPage: { zoneId: 478, format: "halfPage" },
+      largeRectangle: { zoneId: 483, format: "largeRectangle" },
+      skyscraper: { zoneId: 489, format: "skyscraper" },
     },
   },
 
