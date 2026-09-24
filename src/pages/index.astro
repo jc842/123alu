@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.lang || data.lang === 'fr');
+allPosts.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+
+const featuredPost = allPosts[0];
+const recentPosts = allPosts.slice(1, 7);
+---
+
+<Layout title="123alu.com — L'Univers de la Menuiserie Aluminium, Baies Vitrées & Pergolas" description="Observatoire technique des profilés aluminium : baies coulissantes XXL, rupture de pont thermique RPT, pergolas bioclimatiques et vérandas haute isolation.">
+  <!-- Hero Section Style Lexington Bastion (Industrial Minimalist & Bronze/Graphite) -->
+  <section class="relative bg-zinc-950 text-white overflow-hidden border-b border-zinc-800">
+    <div class="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#3f3f46_1px,transparent_1px),linear-gradient(to_bottom,#3f3f46_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-950/80 text-amber-400 border border-amber-800/80 mb-6">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            Ingénierie Aluminium & Architecture Métallique
+          </div>
+          
+          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight font-sans">
+            La Puissance Architecturale de l'<span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-yellow-500">Aluminium Haute Précision</span>
+          </h1>
+          
+          <p class="mt-6 text-lg sm:text-xl text-zinc-300 max-w-2xl font-normal leading-relaxed">
+            Baies coulissantes à levage, pergolas bioclimatiques à lamas orientables, vérandas verrières et portails thermolaqués : le guide technique indépendant de vos projets d'extérieur.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-4 items-center">
+            <a href="#dossiers" class="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-sm tracking-wide transition-all shadow-lg shadow-amber-500/20">
+              Explorer les 200 Dossiers &darr;
+            </a>
+            <a href="/blog/" class="px-6 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-sm border border-zinc-700 transition-all">
+              Index des Publications &rarr;
+            </a>
+          </div>
+
+          <!-- Bastion Specs Counter -->
+          <div class="mt-12 grid grid-cols-3 gap-6 pt-8 border-t border-zinc-800">
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-amber-400 font-mono">100%</div>
+              <div class="text-xs text-zinc-400 mt-1">Recyclable à l'Infini</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-white font-mono">+15%</div>
+              <div class="text-xs text-zinc-400 mt-1">Luminosité Naturelle</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-amber-400 font-mono">Qualicoat</div>
+              <div class="text-xs text-zinc-400 mt-1">Garantie Anticorrosion</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Card -->
+        {featuredPost && (
+          <div class="lg:col-span-5">
+            <div class="bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-8 relative shadow-2xl group hover:border-amber-500/40 transition-all backdrop-blur-sm">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-950/60 px-3 py-1 rounded-full border border-amber-800/60">
+                  Dossier Spécial de la Semaine
+                </span>
+                <span class="text-xs text-zinc-400 font-mono">
+                  {new Date(featuredPost.data.pubDate).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
+                </span>
+              </div>
+              <h2 class="text-2xl font-bold text-white group-hover:text-amber-300 transition-colors leading-snug">
+                <a href={`/blog/${featuredPost.id}/`}>{featuredPost.data.title}</a>
+              </h2>
+              {featuredPost.data.description && (
+                <p class="mt-3 text-zinc-300 text-sm line-clamp-3 leading-relaxed">
+                  {featuredPost.data.description}
+                </p>
+              )}
+              <div class="mt-6 pt-6 border-t border-zinc-800 flex items-center justify-between">
+                <span class="text-xs text-zinc-400 font-medium">Rubrique: <strong class="text-zinc-200">{featuredPost.data.category}</strong></span>
+                <a href={`/blog/${featuredPost.id}/`} class="text-xs font-bold text-amber-400 group-hover:text-amber-300 flex items-center gap-1">
+                  Lire l'étude technique &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid Bastion Section -->
+  <section id="dossiers" class="py-20 bg-zinc-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-amber-500 mb-2">Ingénierie & Savoir-Faire Métallique</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white">Les Grands Systèmes en Aluminium</p>
+        <p class="mt-3 text-base text-zinc-600 dark:text-zinc-400">Analyses comparatives, guides d'installation certifiée et conseils de dimensionnement.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {recentPosts.map((post) => (
+          <article class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 hover:border-amber-500 transition-all flex flex-col justify-between group shadow-sm hover:shadow-xl">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                  {post.data.category || 'Aluminium'}
+                </span>
+                <span class="text-xs text-zinc-400">
+                  {new Date(post.data.pubDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-amber-500 transition-colors line-clamp-2 mb-2">
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+              </h3>
+              {post.data.description && (
+                <p class="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">
+                  {post.data.description}
+                </p>
+              )}
+            </div>
+            <div class="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+              <span class="text-xs text-zinc-500 dark:text-zinc-400">Expertise 123alu</span>
+              <a href={`/blog/${post.id}/`} class="text-xs font-bold text-amber-600 dark:text-amber-400 group-hover:translate-x-1 transition-transform">
+                Consulter &rarr;
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-12 text-center">
+        <a href="/blog/" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-bold text-sm hover:bg-amber-600 dark:hover:bg-amber-400 transition-all shadow-md">
+          Accéder aux 200 Guides et Articles Techniques &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- International Callout -->
+  <section class="py-12 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-4">International Editions / Ediciones Internacionales</p>
+      <div class="flex justify-center items-center gap-6 text-sm font-semibold">
+        <a href="/en/" class="text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1.5">
+          <span>🇬🇧</span> English Edition (Architectural Aluminum Systems)
+        </a>
+        <span class="text-zinc-300 dark:text-zinc-700">|</span>
+        <a href="/es/" class="text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1.5">
+          <span>🇪🇸</span> Edición en Español (Sistemas de Carpintería de Aluminio)
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
